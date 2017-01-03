@@ -21,7 +21,7 @@ $(document).ready(function() {
                parkWhizHeatMap(data)
                $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latPosition + ',' + longPosition + '&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms')
                    .done(function(data) {
-                       console.log(data);
+                      //  console.log(data);
                        initialize()
                    })
                    .fail(function(error) {
@@ -46,7 +46,7 @@ $(document).ready(function() {
        for (var i = 0; i < seedPoints.length; i++) {
            points.push(seedPoints[i])
        }
-       console.log(points);
+      //  console.log(points);
        return points;
    };
 
@@ -56,13 +56,13 @@ $(document).ready(function() {
            var lng = data.parking_listings[i].lng;
            points.push(new google.maps.LatLng(lat, lng))
        }
-       console.log(points);
+      //  console.log(points);
    }
 
    //this function creates the map with the heatmap included. It runs after the document is loaded and the
    // geolocation function has returned coordinates for the users current location
    function initialize() {
-       console.log(points);
+      //  console.log(points);
        var myLatLng = new google.maps.LatLng(latPosition, longPosition);
        map = new google.maps.Map(document.getElementById('map'), {
            center: {
