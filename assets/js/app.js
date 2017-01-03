@@ -76,11 +76,11 @@ $(document).ready(function() {
            data: getPoints(),
            map: map
        });
-       var userMarker = new google.maps.Marker({
-           position: myLatLng,
-           map: map,
+      //  var userMarker = new google.maps.Marker({
+          //  position: myLatLng,
+          //  map: map,
           //  icon: 'spotninja.png'
-       });
+      //  });
    }
 
    function fail() {

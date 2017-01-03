@@ -70,7 +70,7 @@ dfn {
   font-style: italic;
 }
 h1 {
-  font-size: 2em;
+  font-size: 3em;
   margin: 0.67em 0;
 }
 mark {
@@ -1179,6 +1179,7 @@ hr {
 }
 h1{
   font-family: "Permanent Marker",cursive;
+  font-size: 3em;
 };
 h2,
 h3,
@@ -3065,13 +3066,13 @@ fieldset[disabled] a.btn {
   pointer-events: none;
 }
 .btn-default {
-  color: #ff4a47;
-  background-color: #ffffff;
+  color: #3C3C3C;
+  background-color: #ff4a47;
   border-color: #cccccc;
 }
 .btn-default:focus,
 .btn-default.focus {
-  color: #ff4a47;
+  color: #3C3C3C;
   background-color: #e6e6e6;
   border-color: #8c8c8c;
 }
@@ -4952,7 +4953,7 @@ a.badge:focus {
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
   color: #ff4a47;
-  background-color: #ffffff;
+  background-color: #F3F9D2;
 }
 .list-group-item > .badge {
   float: right;
@@ -4968,7 +4969,7 @@ a.badge:focus {
   padding-bottom: 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #ffffff;
+  background-color: #F3F9D2;
 }
 .jumbotron h1,
 .jumbotron .h1 {
