@@ -24,6 +24,9 @@ $(document).ready(function() {
             userLat: position.coords.latitude,
             userLng: position.coords.longitude
         };
+
+        $('#newSpot').on('click', sendLocation(userLocation));
+
         userLatLng = new google.maps.LatLng(userLocation.userLat, userLocation.userLng);
 
         $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + userLocation.userLat + ',' + userLocation.userLng + '&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms')
@@ -36,6 +39,19 @@ $(document).ready(function() {
             })
     })
 })
+
+
+function sendLocation(userLocation) {
+  $.ajax({
+    url: `${Heroku}spots/new`,
+    type: 'POST',
+    data: userLocation,
+    dataType: 'json',
+    // success: function() {
+    //   alert('spot saved');
+    // }
+  });
+}
 
 //this function returns location data to create the heatmap
 function getHeatMapPoints() {
@@ -92,7 +108,6 @@ function getParkWhizData(userInfo) {
             dataType: 'json'
         })
         .done(function(data) {
-          console.log(data);
             displayPaidParkingData(data)
         })
 
