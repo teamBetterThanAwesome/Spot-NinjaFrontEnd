@@ -28,16 +28,11 @@ $(document).ready(function() {
 
         $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + userLocation.userLat + ',' + userLocation.userLng + '&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms')
             .done(function(data) {
-                $.get('https://galvanize-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms&libraries=places')
-                    .done(function(data) {
-                        console.log(data);
-                    })
-                console.log(data);
                 let heat = (getHeatMapPoints());
                 initFullMap(userLocation, heat);
             })
             .fail(function(error) {
-                console.log(error);
+
             })
     })
 })
@@ -138,4 +133,16 @@ function createPaidParkingMarkers(object) {
     paidParkingMarker.addListener('click', function() {
     infowindow.open(map, paidParkingMarker);
   });
+
+  var defaultBounds = new google.maps.LatLngBounds(
+  new google.maps.LatLng(39.75995, -105.0070583),
+  new google.maps.LatLng(39.75001, -105.0070599));
+
+var input = document.getElementById('searchTextField');
+var options = {
+  bounds: defaultBounds,
+  types: ['establishment']
+};
+
+autocomplete = new google.maps.places.Autocomplete(input, options);
 }
