@@ -9,9 +9,6 @@ const Local = 'http://localhost:3000/'
 
 
 
-
-
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -24,15 +21,20 @@ function initMap() {
 $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
         let userLocation = {
-        userLat: position.coords.latitude,
-        userLng:position.coords.longitude
-      };
+            userLat: position.coords.latitude,
+            userLng: position.coords.longitude
+        };
         userLatLng = new google.maps.LatLng(userLocation.userLat, userLocation.userLng);
 
         $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + userLocation.userLat + ',' + userLocation.userLng + '&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms')
             .done(function(data) {
-              let heat = (getHeatMapPoints());
-                 initFullMap(userLocation,heat);
+                $.get('https://galvanize-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms&libraries=places')
+                    .done(function(data) {
+                        console.log(data);
+                    })
+                console.log(data);
+                let heat = (getHeatMapPoints());
+                initFullMap(userLocation, heat);
             })
             .fail(function(error) {
                 console.log(error);
@@ -42,13 +44,13 @@ $(document).ready(function() {
 
 //this function returns location data to create the heatmap
 function getHeatMapPoints() {
-  let points = [];
-  $.get(`${Heroku}spots/`, (spots) => {
-    spots.forEach(spot => {
-      // console.log(spot.lat, spot.lng);
-      points.push(new google.maps.LatLng(spot.lat, spot.lng))
+    let points = [];
+    $.get(`${Heroku}spots/`, (spots) => {
+        spots.forEach(spot => {
+            // console.log(spot.lat, spot.lng);
+            points.push(new google.maps.LatLng(spot.lat, spot.lng))
+        });
     });
-  });
 
 
     // var points = [];
@@ -60,8 +62,8 @@ function getHeatMapPoints() {
     // for (var i = 0; i < seedPoints.length; i++) {
     //     points.push(seedPoints[i])
     // }
-  // console.log(points);
-  return points;
+    // console.log(points);
+    return points;
 };
 
 //this function creates the map with the heatmap included. It runs after the document is loaded and the
@@ -88,31 +90,52 @@ function initFullMap(userInfo, heatData) {
 }
 
 function getParkWhizData(userInfo) {
-    $.ajax ({
-        type: 'GET',
-        url: Heroku,
-        data: userInfo,
-        dataType: 'json'
-  })
-  .done(function(data){
-    displayPaidParkingData(data)
-  })
+    $.ajax({
+            type: 'GET',
+            url: Heroku,
+            data: userInfo,
+            dataType: 'json'
+        })
+        .done(function(data) {
+          console.log(data);
+            displayPaidParkingData(data)
+        })
 
 }
 
 function displayPaidParkingData(data) {
     for (var i = 0; i < data.parking_listings.length; i++) {
-        var lat = data.parking_listings[i].lat;
-        var lng = data.parking_listings[i].lng;
-        createPaidParkingMarkers(lat, lng)
+      var passObject = {
+        lat: data.parking_listings[i].lat,
+        lng: data.parking_listings[i].lng,
+        price: data.parking_listings[i].price_formatted,
+        address: data.parking_listings[i].address,
+        name: data.parking_listings[i].location_name,
+        distance: data.parking_listings[i].distance
+      }
+        createPaidParkingMarkers(passObject)
     }
 }
 
-function createPaidParkingMarkers(lat, lng) {
-    var latLng = new google.maps.LatLng(lat, lng);
+function createPaidParkingMarkers(object) {
+
+    var latLng = new google.maps.LatLng(object.lat, object.lng);
     var paidParkingMarker = new google.maps.Marker({
         map: map,
         position: latLng,
         icon: 'assets/images/dollarsign.png'
     });
+
+    var html = `<h3>${object.name}</h3>
+                <p>${object.address}</p>
+                <p>${object.price}</p>
+                <p>${object.distance} feet away.</p>
+                `
+
+    var infowindow = new google.maps.InfoWindow({
+        content: html
+    });
+    paidParkingMarker.addListener('click', function() {
+    infowindow.open(map, paidParkingMarker);
+  });
 }
