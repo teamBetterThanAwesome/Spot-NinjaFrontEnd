@@ -31,7 +31,8 @@ $(document).ready(function() {
 
         $.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + userLocation.userLat + ',' + userLocation.userLng + '&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms')
             .done(function(data) {
-                 initFullMap(userLocation)
+              let heat = (getHeatMapPoints());
+                 initFullMap(userLocation,heat);
             })
             .fail(function(error) {
                 console.log(error);
@@ -41,21 +42,31 @@ $(document).ready(function() {
 
 //this function returns location data to create the heatmap
 function getHeatMapPoints() {
-    var points = [];
-    var seedPoints = [
-        new google.maps.LatLng(39.75995, -105.0070583),
-        new google.maps.LatLng(39.75995, -105.0070583),
-        new google.maps.LatLng(39.75995, -105.0070583)
-    ]
-    for (var i = 0; i < seedPoints.length; i++) {
-        points.push(seedPoints[i])
-    }
-    return points;
+  let points = [];
+  $.get(`${Heroku}spots/`, (spots) => {
+    spots.forEach(spot => {
+      // console.log(spot.lat, spot.lng);
+      points.push(new google.maps.LatLng(spot.lat, spot.lng))
+    });
+  });
+
+
+    // var points = [];
+    // var seedPoints = [
+    //     new google.maps.LatLng(39.75995, -105.0070583),
+    //     new google.maps.LatLng(39.75995, -105.0070583),
+    //     new google.maps.LatLng(39.75995, -105.0070583)
+    // ]
+    // for (var i = 0; i < seedPoints.length; i++) {
+    //     points.push(seedPoints[i])
+    // }
+  // console.log(points);
+  return points;
 };
 
 //this function creates the map with the heatmap included. It runs after the document is loaded and the
 // geolocation function has returned coordinates for the users current location
-function initFullMap(userInfo) {
+function initFullMap(userInfo, heatData) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: userInfo.userLat,
@@ -64,10 +75,10 @@ function initFullMap(userInfo) {
         zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-    // heatmap = new google.maps.visualization.HeatmapLayer({
-        // data: getHeatMapPoints(),
-        // map: map
-    // });
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatData,
+        map: map
+    });
     var userMarker = new google.maps.Marker({
         position: userLatLng,
         map: map,
