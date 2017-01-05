@@ -2,15 +2,6 @@
 const Heroku = 'https://spotninja.herokuapp.com/'
 const Local = 'http://localhost:3000/'
 
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 39.7576958,
-            lng: -105.00724629999999
-        },
-        zoom: 2
-    });
-}
 $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
         let userLocation = {
@@ -25,7 +16,7 @@ $(document).ready(function() {
                 initFullMap(userLocation, heat);
             })
             .fail(function(error) {
-
+                console.log("hi");
             })
     })
 
@@ -43,36 +34,36 @@ $(document).ready(function() {
 
 
     //Find user input from searchbar, get lat and lng of that location and update map!
-    google.maps.event.addListener(autocomplete, 'place_changed', function(){
-            let mylocation = autocomplete.getPlace();
-            $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${mylocation.formatted_address}&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms`)
-                  .done(function(data) {
-                    let heat = (getHeatMapPoints());
-                    let location = data.results[0].geometry.location;
-                    let userInfo = {
-                      userLat: location.lat,
-                      userLng: location.lng
-                    }
-                    let userLatLng = new google.maps.LatLng(location.lat, location.lng);
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: {
-                            lat: location.lat,
-                            lng: location.lng
-                        },
-                        zoom: 16,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    });
-                    heatmap = new google.maps.visualization.HeatmapLayer({
-                        data: heat,
-                        map: map
-                    });
-                    var userMarker = new google.maps.Marker({
-                        position: userLatLng,
-                        map: map,
-                        icon: 'assets/images/logoninjasmall.png'
-                    });
-                    getParkWhizData(userInfo);
-                  });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        let mylocation = autocomplete.getPlace();
+        $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${mylocation.formatted_address}&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms`)
+            .done(function(data) {
+                let heat = (getHeatMapPoints());
+                let location = data.results[0].geometry.location;
+                let userInfo = {
+                    userLat: location.lat,
+                    userLng: location.lng
+                }
+                let userLatLng = new google.maps.LatLng(location.lat, location.lng);
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {
+                        lat: location.lat,
+                        lng: location.lng
+                    },
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+                heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heat,
+                    map: map
+                });
+                var userMarker = new google.maps.Marker({
+                    position: userLatLng,
+                    map: map,
+                    icon: 'assets/images/logoninjasmall.png'
+                });
+                getParkWhizData(userInfo);
+            });
     });
 });
 
@@ -144,7 +135,8 @@ function displayPaidParkingData(data) {
             address: data[i]._embedded['pw:location'].address1,
             name: data[i]._embedded['pw:location'].name,
             distance: data[i].distance.straight_line.feet,
-            rating: data[i]._embedded['pw:location'].rating_summary.average_rating
+            rating: data[i]._embedded['pw:location'].rating_summary.average_rating,
+            price: data[i].purchase_options[0].price['USD']
         }
         createPaidParkingMarkers(parkingGaragesObject)
     }
@@ -162,6 +154,7 @@ function createPaidParkingMarkers(object) {
                 <p>${object.address}</p>
                 <p>${object.distance} feet away.</p>
                 <p>rating: ${object.rating}</p>
+                <p>price: ${object.price}</p>
                 `
 
     var infowindow = new google.maps.InfoWindow({
