@@ -28,7 +28,53 @@ $(document).ready(function() {
 
             })
     })
-})
+
+    // var defaultBounds = new google.maps.LatLngBounds(
+    //     new google.maps.LatLng(39.75995, -105.0070583),
+    //     new google.maps.LatLng(39.75001, -105.0070599));
+
+    var input = document.getElementById('searchTextField');
+    var options = {
+        // bounds: defaultBounds,
+        types: ['establishment']
+    };
+
+    autocomplete = new google.maps.places.Autocomplete(input, options);
+
+
+    //Find user input from searchbar, get lat and lng of that location and update map!
+    google.maps.event.addListener(autocomplete, 'place_changed', function(){
+            let mylocation = autocomplete.getPlace();
+            $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${mylocation.formatted_address}&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms`)
+                  .done(function(data) {
+                    let heat = (getHeatMapPoints());
+                    let location = data.results[0].geometry.location;
+                    let userInfo = {
+                      userLat: location.lat,
+                      userLng: location.lng
+                    }
+                    let userLatLng = new google.maps.LatLng(location.lat, location.lng);
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {
+                            lat: location.lat,
+                            lng: location.lng
+                        },
+                        zoom: 16,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+                    heatmap = new google.maps.visualization.HeatmapLayer({
+                        data: heat,
+                        map: map
+                    });
+                    var userMarker = new google.maps.Marker({
+                        position: userLatLng,
+                        map: map,
+                        icon: 'assets/images/logoninjasmall.png'
+                    });
+                    getParkWhizData(userInfo);
+                  });
+    });
+});
 
 //this function returns location data to create the heatmap
 function getHeatMapPoints() {
@@ -125,15 +171,4 @@ function createPaidParkingMarkers(object) {
         infowindow.open(map, paidParkingMarker);
     });
 
-    var defaultBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(39.75995, -105.0070583),
-        new google.maps.LatLng(39.75001, -105.0070599));
-
-    var input = document.getElementById('searchTextField');
-    var options = {
-        bounds: defaultBounds,
-        types: ['establishment']
-    };
-
-    autocomplete = new google.maps.places.Autocomplete(input, options);
 }
