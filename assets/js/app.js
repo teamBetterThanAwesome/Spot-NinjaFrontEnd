@@ -117,7 +117,7 @@ function initFullMap(userInfo, heatData) {
 function getParkWhizData(userInfo) {
     $.ajax({
             type: 'GET',
-            url: Local,
+            url: Heroku,
             data: userInfo,
             dataType: 'json'
         })
