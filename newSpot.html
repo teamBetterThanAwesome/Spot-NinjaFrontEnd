@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create A Spot</title>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Permanent+Marker|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+  <div class="navbar navbar-default " role="navigation">
+      <div class="container-fluid">
+          <div class="navbar-header"><a class="navbar-brand" href="#">Spot Ninja</a>
+              <button type="button" class="navbar-toggle btn btn-default" data-toggle="collapse" data-target="#navbarMenu" aria-expanded='false' aria-controls='navbarMenu'><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+              </button>
+          </div>
+          <div class="collapse navbar-collapse " id="navbarMenu">
+              <ul class="nav navbar-nav navbar-left navbar-link">
+                  <li><a href="index.html">Home</a>
+                  </li>
+                  <li><a href="login.html">Login</a>
+                  </li>
+                  <li><a href="/about-us">About Us</a>
+                  </li>
+                  <li><a href="/contact">Contact Us</a>
+                  </li>
+
+              </ul>
+          </div>
+      </div>
+  </div>
+
+</header>
+<main class="container">
+  <form method="post">
+       <div class="form-group form-group-lg">
+        <label class="control-label requiredField" for="lat">
+         Lattitude
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="lat" name="lat" type="number" readonly=""/>
+       </div>
+       <div class="form-group form-group-lg">
+        <label class="control-label requiredField" for="lng">
+         Longitude
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <input class="form-control" id="lng" name="lng" type="number" readonly=""/>
+       </div>
+       <div class="form-group form-group-lg">
+        <label class="control-label " for="rating">
+         Rating
+        </label>
+        <select class="select form-control" id="rating" name="rating">
+         <option value="1">
+          1
+         </option>
+         <option value="2">
+          2
+         </option>
+         <option value="3">
+          3
+         </option>
+         <option value="4">
+          4
+         </option>
+         <option value="5">
+          5
+         </option>
+        </select>
+        <span class="help-block" id="hint_rating">
+         Rate your parking Space
+        </span>
+       </div>
+       <div class="form-group" id="div_type">
+        <label class="control-label " for="type">
+         Type
+        </label>
+        <div class=" ">
+         <label class="checkbox-inline">
+          <input name="type" type="checkbox" value="2_hour"/>
+          Two Hour
+         </label>
+         <label class="checkbox-inline">
+          <input name="type" type="checkbox" value="all-day"/>
+          All Day
+         </label>
+         <label class="checkbox-inline">
+          <input name="type" type="checkbox" value="night"/>
+          Overnight
+         </label>
+        </div>
+       </div>
+       <div class="form-group form-group-lg">
+        <label class="control-label " for="comments">
+         Comments
+        </label>
+        <textarea class="form-control" cols="40" id="comments" name="comments" placeholder="This Spot is Awesome!" rows="2"></textarea>
+       </div>
+       <div class="form-group">
+        <div>
+         <button class="btn btn-default btn-lg outline" name="submit" type="submit" id="submitSpot">
+          Submit
+         </button>
+        </div>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+<script src="assets/js/newSpot.js" charset="utf-8"></script>
+</body>
+
+</html>
