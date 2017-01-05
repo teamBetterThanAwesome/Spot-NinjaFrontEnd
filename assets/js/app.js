@@ -2,13 +2,6 @@
 const Heroku = 'https://spotninja.herokuapp.com/'
 const Local = 'http://localhost:3000/'
 
-
-
-
-
-
-
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -87,33 +80,31 @@ function initFullMap(userInfo, heatData) {
 function getParkWhizData(userInfo) {
     $.ajax({
             type: 'GET',
-            url: Heroku,
+            url: Local,
             data: userInfo,
             dataType: 'json'
         })
         .done(function(data) {
-          console.log(data);
+            console.log(data);
             displayPaidParkingData(data)
         })
-
 }
 
 function displayPaidParkingData(data) {
-    for (var i = 0; i < data.parking_listings.length; i++) {
-      var passObject = {
-        lat: data.parking_listings[i].lat,
-        lng: data.parking_listings[i].lng,
-        price: data.parking_listings[i].price_formatted,
-        address: data.parking_listings[i].address,
-        name: data.parking_listings[i].location_name,
-        distance: data.parking_listings[i].distance
-      }
-        createPaidParkingMarkers(passObject)
+    for (var i = 0; i < data.length; i++) {
+        var parkingGaragesObject = {
+            lat: data[i]._embedded['pw:location'].entrances[0].coordinates[0],
+            lng: data[i]._embedded['pw:location'].entrances[0].coordinates[1],
+            address: data[i]._embedded['pw:location'].address1,
+            name: data[i]._embedded['pw:location'].name,
+            distance: data[i].distance.straight_line.feet,
+            rating: data[i]._embedded['pw:location'].rating_summary.average_rating
+        }
+        createPaidParkingMarkers(parkingGaragesObject)
     }
 }
 
 function createPaidParkingMarkers(object) {
-
     var latLng = new google.maps.LatLng(object.lat, object.lng);
     var paidParkingMarker = new google.maps.Marker({
         map: map,
@@ -123,26 +114,26 @@ function createPaidParkingMarkers(object) {
 
     var html = `<h3>${object.name}</h3>
                 <p>${object.address}</p>
-                <p>${object.price}</p>
                 <p>${object.distance} feet away.</p>
+                <p>rating: ${object.rating}</p>
                 `
 
     var infowindow = new google.maps.InfoWindow({
         content: html
     });
     paidParkingMarker.addListener('click', function() {
-    infowindow.open(map, paidParkingMarker);
-  });
+        infowindow.open(map, paidParkingMarker);
+    });
 
-  var defaultBounds = new google.maps.LatLngBounds(
-  new google.maps.LatLng(39.75995, -105.0070583),
-  new google.maps.LatLng(39.75001, -105.0070599));
+    var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(39.75995, -105.0070583),
+        new google.maps.LatLng(39.75001, -105.0070599));
 
-var input = document.getElementById('searchTextField');
-var options = {
-  bounds: defaultBounds,
-  types: ['establishment']
-};
+    var input = document.getElementById('searchTextField');
+    var options = {
+        bounds: defaultBounds,
+        types: ['establishment']
+    };
 
-autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete = new google.maps.places.Autocomplete(input, options);
 }
