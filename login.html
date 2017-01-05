@@ -12,20 +12,93 @@
 
 <body>
     <header>
+      <div class="navbar navbar-default " role="navigation">
+          <div class="container-fluid">
+              <div class="navbar-header"><a class="navbar-brand" href="#">Spot Ninja</a>
+                  <button type="button" class="navbar-toggle btn btn-default" data-toggle="collapse" data-target="#navbarMenu" aria-expanded='false' aria-controls='navbarMenu'><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                  </button>
+              </div>
+              <div class="collapse navbar-collapse " id="navbarMenu">
+                  <ul class="nav navbar-nav navbar-left navbar-link">
+                      <li><a href="index.html">Home</a>
+                      </li>
+                      <li><a href="login.html">Login</a>
+                      </li>
+                      <li><a href="/about-us">About Us</a>
+                      </li>
+                      <li><a href="/contact">Contact Us</a>
+                      </li>
+
+                  </ul>
+              </div>
+          </div>
+      </div>
 
     </header>
-    <main class="row container">
-        <img src="assets/images/phoneNinja.png" alt="Sword Swinging Ninja" class="col-sm-8 col-md-6 ninja"/>
-        <form class="col-sm-8 col-md-6" action="index.html" method="post">
-          <label>Email<input class="col-sm-8 col-md-6" type="text" name="email" value=""></label>
-        <label>Password</label>    <input type="text" name="password" value=""></label>
-            <button class=" btn btn-default" type="submit" name="button">Login!</button>
-            <button class=" btn btn-default" type="reset" name="button">Clear</button>
-
-        </form>
-        <h3>Sign Up <a href="register.html">Here</a></h3>
+    <main>
+        <div class="form">
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="formden_header">
+       <h2>
+        Login
+       </h2>
+       <p>
+        Please fill out form to access your saved spots.
+       </p>
+      </div>
+      <form method="post">
+       <div class="form-group form-group-lg">
+        <label class="control-label requiredField" for="email">
+         Email
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <div class="input-group">
+         <div class="input-group-addon">
+          <i class="glyphicon glyphicon-envelope">
+          </i>
+         </div>
+         <input type="email" class="form-control" id="email" name="email"  placeholder="andypants@spotninja.com" type="text"/>
+        </div>
+       </div>
+       <div class="form-group form-group-lg">
+        <label class="control-label requiredField" for="password">
+         Password
+         <span class="asteriskField">
+          *
+         </span>
+        </label>
+        <div class="input-group">
+         <div class="input-group-addon">
+          <i class="glyphicon glyphicon-lock">
+          </i>
+         </div>
+         <input class="form-control" id="password" name="password" type="password" placeholder="*************" type="text"/>
+        </div>
+       </div>
+         <h3 class="col-sm-8 ">Create Account <a href="register.html">Here</a></h3>
+       <div class="form-group col-sm-8">
+        <div>
+         <button class="btn btn-default btn-lg outline" name="submit" type="submit">
+          Submit
+         </button>
+         <button class="btn btn-default btn-lg outline" name="clear" type="clear">
+           Clear
+         </button>
+        </div>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+    <img src="assets/images/phoneNinja.png" alt="Happy Ninja" class="col-xs-offset-4 ninja"/>
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
 </body>
 
 </html>
