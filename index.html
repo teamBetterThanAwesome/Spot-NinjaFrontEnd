@@ -26,13 +26,28 @@
         <a href="login.html" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-user"></span> Log In</a>
         <a href="#" class="btn btn-lg btn-default">Add Spot! <span class="glyphicon glyphicon-map-marker"></span></a>
     </header>
-    <main>
-        <div class="row text-center">
-            <form class="col-sm-12" action="index.html" method="get">
-              <input type="text" name="searchbar" value="" placeholder="Where are you going?" id="searchTextField">
-              <button class=" glyphicon glyphicon-search"></button>
+    <main class="container">
+        <div class="row">
+          <div class="form-group form-group-md">
+  <label class="control-label col-sm-1" for="searchInput">Search</label>
+  <div class="col-sm-12">
+    <div class="search input-group input-group-lg" data-initialize="search" role="search" id="search">
+      <input id="searchInput" name="searchInput" class="form-control" placeholder="" type="search">
+      <span class="input-group-btn">
+        <button class="btn btn-default btn-lg" type="button">
+          <span class="glyphicon glyphicon-search"></span>
+          <span class="sr-only">Search</span>
+        </button>
+      </span>
 
-            </form>
+    </div>
+    <p class="help-block">Search cities, addresses, or location name</p>
+  </div>
+</div>
+
+
+</fieldset>
+</form>
             <div class="container">
               <div class="col-xs-12">
                 <div id="map">
