@@ -59,6 +59,7 @@ $(document).ready(function() {
                         });
                         getParkWhizData(userInfo);
                     })
+
                 });
         });
 
@@ -156,10 +157,10 @@ $(document).ready(function() {
                 <p>rating: ${object.rating}</p>
                 <p>price: ${object.price}</p>
                 `
-
             var infowindow = new google.maps.InfoWindow({
                 content: html
             });
+
             paidParkingMarker.addListener('click', function() {
                 infowindow.open(map, paidParkingMarker);
             });
