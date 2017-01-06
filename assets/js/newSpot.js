@@ -1,5 +1,5 @@
 const Heroku = 'https://spotninja.herokuapp.com/spots/new'
-
+const local = 'http://localhost:3000/spots/new'
 
 
 $(document).ready(function() {
@@ -33,5 +33,6 @@ function sendToServer() {
 
  }
 
-  $.post(`${Heroku}`, spot);
+  $.post(`${local}`, spot)
+  .then(console.log(message));
 }
