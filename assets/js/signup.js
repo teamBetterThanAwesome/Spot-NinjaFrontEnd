@@ -16,5 +16,5 @@ $(() => {
 });
 
 function signUp(user) {
-  return $.post(`${Heroku}/auth/signup`, user)
+  return $.post(`${Heroku}/signup`, user)
 }

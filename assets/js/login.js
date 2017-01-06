@@ -17,5 +17,5 @@ $(document).ready(() => {
 
 
 function loginUser(vals) {
-  return $.post(`${Heroku}/auth/login`, vals);
+  return $.post(`${Heroku}/login`, vals);
 }
