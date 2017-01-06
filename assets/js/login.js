@@ -1,3 +1,5 @@
+redirectIfLoggedIn();
+
 $(document).ready(() => {
   $('#loginBtn').click((event) => {
     event.preventDefault();
@@ -7,8 +9,7 @@ $(document).ready(() => {
     };
     loginUser(formVals)
       .then(result => {
-        console.log(result);
-        window.location = `/profile.html?id=${result.id}`
+        setIdRedirect(result);
       }).catch(error => {
         console.error(error);
       });
@@ -17,5 +18,5 @@ $(document).ready(() => {
 
 
 function loginUser(vals) {
-  return $.post(`${Local}/login`, vals);
+  return $.post(`${API_URL}/login`, vals);
 }

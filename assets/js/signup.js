@@ -1,3 +1,5 @@
+redirectIfLoggedIn();
+
 $(() => {
   $('form').submit((event) => {
     event.preventDefault();
@@ -8,7 +10,7 @@ $(() => {
     };
     signUp(user)
       .then(result => {
-        window.location = `/profile.html?id=${result.id}`;
+        setIdRedirect(result);
       }).catch(error => {
         console.error(error);
       });
@@ -16,5 +18,5 @@ $(() => {
 });
 
 function signUp(user) {
-  return $.post(`${Local}/signup`, user)
+  return $.post(`${API_URL}/signup`, user)
 }
