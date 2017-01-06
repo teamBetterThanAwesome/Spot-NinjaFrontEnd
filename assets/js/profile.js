@@ -1,5 +1,3 @@
-const Heroku = 'https://spotninja.herokuapp.com/'
-const Local = 'http://localhost:3000/'
 
 $(document).ready(function() {
   const params = parseQuery(window.location.search)
@@ -44,7 +42,7 @@ $(document).ready(function() {
         function getUserSpots(userId) {
             $.ajax({
                     type: 'GET',
-                    url: `${Local}spots/user/${userId}`,
+                    url: `${API_URL}spots/user/${userId}`,
                     dataType: 'json'
                 })
                 .done(function(data) {
