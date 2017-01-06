@@ -69,7 +69,7 @@ $(document).ready(function() {
             if (heatPoints.length > 0) {
                 return Promise.resolve(heatPoints)
             } else {
-                return $.get(`${Heroku}spots/`).then((spots) => {
+                return $.get(`${Local}spots/`).then((spots) => {
                     return spots.map(spot => {
                         // console.log(spot.lat, spot.lng);
                         return (new google.maps.LatLng(spot.lat, spot.lng))
@@ -118,7 +118,7 @@ $(document).ready(function() {
         function getParkWhizData(userInfo) {
             $.ajax({
                     type: 'GET',
-                    url: Heroku,
+                    url: Local,
                     data: userLocation,
                     dataType: 'json'
                 })
