@@ -5,5 +5,5 @@ $.ajaxSetup({
   }
 });
 
-const Heroku = 'https://spotninja.herokuapp.com/auth/login';
-const local = 'http://localhost:3000/auth/login';
+const Heroku = 'https://spotninja.herokuapp.com/auth';
+const local = 'http://localhost:3000/auth';

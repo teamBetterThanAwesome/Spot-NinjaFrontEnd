@@ -1,6 +1,3 @@
-
-
-
 $(document).ready(() => {
   $('#loginBtn').click((event) => {
     event.preventDefault();
@@ -11,6 +8,7 @@ $(document).ready(() => {
     loginUser(formVals)
       .then(result => {
         console.log(result);
+        window.location = `/profile.html?id=${result.id}`
       }).catch(error => {
         console.error(error);
       });
@@ -19,5 +17,5 @@ $(document).ready(() => {
 
 
 function loginUser(vals) {
-  return $.post(local, vals);
+  return $.post(`${local}/login`, vals);
 }
