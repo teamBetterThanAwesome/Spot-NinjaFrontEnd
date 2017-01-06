@@ -32,5 +32,6 @@ function sendToServer() {
    night: $('input[name="overnight"]:checked').val()
 
  }
- $.post(`${Heroku}`, spot);
+  
+  $.post(`${Heroku}`, spot);
 }
