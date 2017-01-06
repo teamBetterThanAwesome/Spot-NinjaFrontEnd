@@ -79,25 +79,60 @@
          Rate your parking Space
         </span>
        </div>
-       <div class="form-group" id="div_type">
-        <label class="control-label " for="type">
-         Type
-        </label>
-        <div class=" ">
-         <label class="checkbox-inline">
-          <input name="type" type="checkbox" value="2_hour"/>
-          Two Hour
-         </label>
-         <label class="checkbox-inline">
-          <input name="type" type="checkbox" value="all-day"/>
-          All Day
-         </label>
-         <label class="checkbox-inline">
-          <input name="type" type="checkbox" value="night"/>
-          Overnight
-         </label>
-        </div>
+       <div class="row">
+       <div class="form-group">
+         <label class="col-xs-3 control-label" for="twoHour">Two Hour</label>
+         <div class="col-xs-4">
+         <div class="radio">
+           <label for="Two Hour-0">
+             <input type="radio" name='twoHour' id="Two Hour-0" value="True" checked="checked">
+             Yes
+           </label>
+       	</div>
+         <div class="radio">
+           <label for="Two Hour-1">
+             <input type="radio" name="twoHour" id="Two Hour-1" value="False">
+             No
+           </label>
+       	</div>
+         </div>
        </div>
+       <div class="form-group">
+         <label class="col-xs-3 control-label" for="All Day">All Day</label>
+         <div class="col-xs-4">
+         <div class="radio">
+           <label for="All Day-0">
+             <input type="radio" name="allDay" id="All Day-0" value="True" checked="checked">
+             Yes
+           </label>
+       	</div>
+         <div class="radio">
+           <label for="All Day-1">
+             <input type="radio" name="allDay" id="All Day-1" value="False">
+             No
+           </label>
+       	</div>
+         </div>
+       </div>
+          <div class="form-group">
+         <label class="col-xs-3 control-label" for="Overnight">Overnight</label>
+         <div class="col-xs-4">
+         <div class="radio">
+           <label for="Overnight-0">
+             <input type="radio" name="overnight" id="Overnight-0" value="True" checked="checked">
+             Yes
+           </label>
+       	</div>
+         <div class="radio">
+           <label for="Overnight-1">
+             <input type="radio" name="overnight" id="Overnight-1" value="False">
+             No
+           </label>
+       	</div>
+         </div>
+       </div>
+     </div>
+     <br />
        <div class="form-group form-group-lg">
         <label class="control-label " for="comments">
          Comments
