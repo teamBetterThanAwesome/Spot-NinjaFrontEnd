@@ -5,7 +5,6 @@ $.ajaxSetup({
   }
 });
 API_URL = getHostURL();
-
 function getHostURL() {
   if (window.location.host.indexOf('localhost') != -1) {
     return 'http://localhost:3000/auth';
@@ -35,3 +34,4 @@ function logout() {
       window.location = '/';
     });
 }
+
