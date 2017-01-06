@@ -1,6 +1,6 @@
 //******************* Variables
-const Heroku = 'https://spotninja.herokuapp.com/'
-const Local = 'http://localhost:3000/'
+// const Heroku = 'https://spotninja.herokuapp.com/'
+// const Local = 'http://localhost:3000/'
 
 $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
             if (heatPoints.length > 0) {
                 return Promise.resolve(heatPoints)
             } else {
-                return $.get(`${Local}spots/`).then((spots) => {
+                return $.get(`${API_URL}spots/`).then((spots) => {
                     return spots.map(spot => {
                         // console.log(spot.lat, spot.lng);
                         return (new google.maps.LatLng(spot.lat, spot.lng))
@@ -118,7 +118,7 @@ $(document).ready(function() {
         function getParkWhizData(userInfo) {
             $.ajax({
                     type: 'GET',
-                    url: Local,
+                    url: API_URL,
                     data: userLocation,
                     dataType: 'json'
                 })
