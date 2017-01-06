@@ -1,5 +1,5 @@
 const Heroku = 'https://spotninja.herokuapp.com/spots/new'
-
+const local = 'http://localhost:3000/spots/new'
 
 
 $(document).ready(function() {
@@ -27,10 +27,12 @@ function sendToServer() {
     rating: $('#rating').val(),
     comment: $('#comments').val(),
     user_id: 1,
-    '2_hr': $('input[name="twoHour"]:checked').val(),
+    two_hr: $('input[name="twoHour"]:checked').val(),
    all_day: $('input[name="allDay"]:checked').val(),
    night: $('input[name="overnight"]:checked').val()
 
  }
- $.post(`${Heroku}`, spot);
+
+  $.post(`${local}`, spot)
+  .then(console.log(message));
 }

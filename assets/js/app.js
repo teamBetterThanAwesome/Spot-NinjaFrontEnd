@@ -15,10 +15,10 @@ $(document).ready(function() {
             initFullMap(userLocation, heat);
         });
         // getHeatMapPoints()
-
         // var defaultBounds = new google.maps.LatLngBounds(
         //     new google.maps.LatLng(39.75995, -105.0070583),
         //     new google.maps.LatLng(39.75001, -105.0070599));
+
 
         var input = document.getElementById('searchTextField');
         var options = {
@@ -62,6 +62,7 @@ $(document).ready(function() {
 
                 });
         });
+
 
         //this function returns location data to create the heatmap
         function getHeatMapPoints() {
