@@ -26,13 +26,13 @@ function sendToServer() {
     lng: $('#lng').val(),
     rating: $('#rating').val(),
     comment: $('#comments').val(),
-    user_id: 1,
+    user_id: 15,
     two_hr: $('input[name="twoHour"]:checked').val(),
    all_day: $('input[name="allDay"]:checked').val(),
    night: $('input[name="overnight"]:checked').val()
 
  }
 
-  $.post(`${API_URL}`, spot)
+  $.post(`${API_URL}/spots/new`, spot)
     .then(redirectIfLoggedIn());
 }

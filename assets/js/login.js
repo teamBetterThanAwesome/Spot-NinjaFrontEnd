@@ -18,5 +18,5 @@ $(document).ready(() => {
 
 
 function loginUser(vals) {
-  return $.post(`${API_URL}/login`, vals);
+  return $.post(`${API_URL}/auth/login`, vals);
 }

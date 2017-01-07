@@ -18,5 +18,5 @@ $(() => {
 });
 
 function signUp(user) {
-  return $.post(`${API_URL}/signup`, user)
+  return $.post(`${API_URL}/auth/signup`, user)
 }
