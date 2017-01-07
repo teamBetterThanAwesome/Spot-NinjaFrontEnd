@@ -42,7 +42,7 @@ $(document).ready(function() {
         function getUserSpots(userId) {
             $.ajax({
                     type: 'GET',
-                    url: `${API_URL}spots/user/${userId}`,
+                    url: `${API_URL}/spots/${userId}`,
                     dataType: 'json'
                 })
                 .done(function(data) {
