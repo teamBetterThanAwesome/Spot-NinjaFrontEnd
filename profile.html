@@ -20,13 +20,13 @@
                 </div>
                 <div class="collapse navbar-collapse " id="navbarMenu">
                     <ul class="nav navbar-nav navbar-left navbar-link">
-                        <li><a href="/index.html">Home</a>
+                        <li><a href="/profile.html">Home</a>
                         </li>
                         <li><a href="/login.html">Login</a>
                         </li>
-                        <li><a href="/about-us">About Us</a>
+                        <li><a href="/about-us.html">About Us</a>
                         </li>
-                        <li><a href="/contact">Contact Us</a>
+                        <li><a href="/contact.html">Contact Us</a>
                         </li>
                     </ul>
                 </div>
@@ -34,15 +34,33 @@
         </div>
     </header>
     <main>
-      <div class="container">
-          <div class="col-xs-12">
-              <div style="width:50vw; height:50vh; "id="map">
+        <div class="container">
+            <div class="row">
+
+                <a href="#" class="btn btn-lg btn-default col-xs-offset-8 col-sm-offset-10">Log Out <span class="glyphicon glyphicon-log-out"></span></a>
+            </div>
+
+            <div class="col-xs-12">
+                <div id="map">
 
 
-              </div>
-          </div>
-      </div>
-        <img src="/assets/images/winkNinja.png" alt="Wink Ninja" class="col-xs-offset-4 ninja" />
+                </div>
+                <br/>
+            </div>
+            <a href="newSpot.html" class="btn btn-lg btn-default  col-xs-offset-5">Save New Spot <span class="glyphicon glyphicon-map-marker"></span></a>
+            <br />
+            <section id='savedSpots'>
+              <h3 class="text-center" hidden="" id="noSpots">You Don't Have Any Spots Saved Yet!</h3>
+              <img src="/assets/images/winkNinja.png" alt="Wink Ninja" class="col-xs-offset-4 ninja" hidden="" id="winkNinja" />
+
+                <ul class="list-group" id="parkingList">
+
+                </ul>
+            </section>
+
+
+        </div>
+
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms&libraries=visualization,places" async defer></script>
