@@ -29,7 +29,7 @@ function redirectIfLoggedIn() {
 
 function logout() {
   localStorage.removeItem('user_id');
-  $.get(`${API_URL}/logout`)
+  $.get(`${API_URL}/auth/logout`)
     .then(result => {
       window.location = '/';
     });
