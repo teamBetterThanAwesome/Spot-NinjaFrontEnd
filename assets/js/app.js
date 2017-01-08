@@ -1,6 +1,3 @@
-//******************* Variables
-// const Heroku = 'https://spotninja.herokuapp.com/'
-// const Local = 'http://localhost:3000/'
 
 $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -11,56 +8,26 @@ $(document).ready(function() {
         };
         userLatLng = new google.maps.LatLng(userLocation.userLat, userLocation.userLng);
         getHeatMapPoints().then(function(heat) {
-            console.log(heat);
             initFullMap(userLocation, heat);
         });
-        // getHeatMapPoints()
-        // var defaultBounds = new google.maps.LatLngBounds(
-        //     new google.maps.LatLng(39.75995, -105.0070583),
-        //     new google.maps.LatLng(39.75001, -105.0070599));
-
 
         var input = document.getElementById('searchTextField');
         var options = {
-            // bounds: defaultBounds,
             types: ['establishment']
         };
         autocomplete = new google.maps.places.Autocomplete(input, options);
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             let mylocation = autocomplete.getPlace();
-            $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${mylocation.formatted_address}&key=AIzaSyB6mjYhp5ca_RPpOdHu_Ul7E-YY6BYzmms`)
-                .done(function(data) {
-                    getHeatMapPoints().then(function(heatPoints) {
-                        let heat = heatPoints
-                        let location = data.results[0].geometry.location;
-                        let userInfo = {
-                            userLat: location.lat,
-                            userLng: location.lng
-                        }
-                        let userLatLng = new google.maps.LatLng(location.lat, location.lng);
-                        console.log(userLatLng);
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: {
-                                lat: location.lat,
-                                lng: location.lng
-                            },
-                            zoom: 16,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                        });
-                        heatmap = new google.maps.visualization.HeatmapLayer({
-                            data: heatPoints,
-                            map: map
-                        });
-                        var userMarker = new google.maps.Marker({
-                            position: userLatLng,
-                            map: map,
-                            icon: 'assets/images/logoninjasmall.png'
-                        });
-                        getParkWhizData(userInfo);
-                    })
-
-                });
+            let locationArr = mylocation.geometry.location.toString().replace(/[{(),}]/g, '').split(' ');
+            let userInfo = {
+                userLat: parseFloat(locationArr[0]),
+                userLng: parseFloat(locationArr[1])
+            };
+            let userLatLng = new google.maps.LatLng(userInfo.userLat, userInfo.userLat);
+            getHeatMapPoints().then(function(heat) {
+                initFullMap(userInfo, heat);
+            });
         });
 
 
@@ -80,21 +47,11 @@ $(document).ready(function() {
                 })
             }
         }
-        // var points = [];
-        // var seedPoints = [
-        //     new google.maps.LatLng(39.75995, -105.0070583),
-        //     new google.maps.LatLng(39.75995, -105.0070583),
-        //     new google.maps.LatLng(39.75995, -105.0070583)
-        // ]
-        // for (var i = 0; i < seedPoints.length; i++) {
-        //     points.push(seedPoints[i])
-        // }
-        // console.log(points);
-
 
         //this function creates the map with the heatmap included. It runs after the document is loaded and the
         // geolocation function has returned coordinates for the users current location
         function initFullMap(userLocation, heatPoints) {
+          var userLatLng = new google.maps.LatLng(userLocation.userLat, userLocation.userLng);
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {
                     lat: userLocation.userLat,
@@ -123,13 +80,11 @@ $(document).ready(function() {
                     dataType: 'json'
                 })
                 .done(function(data) {
-                    console.log(data);
                     displayPaidParkingData(data)
                 })
         }
 
         function displayPaidParkingData(data) {
-            console.log(userLocation);
             for (var i = 0; i < data.length; i++) {
                 var parkingGaragesObject = {
                     lat: data[i]._embedded['pw:location'].entrances[0].coordinates[0],

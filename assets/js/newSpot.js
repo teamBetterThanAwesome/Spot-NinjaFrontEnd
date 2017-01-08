@@ -26,7 +26,7 @@ function sendToServer() {
     lng: $('#lng').val(),
     rating: $('#rating').val(),
     comment: $('#comments').val(),
-    user_id: 15,
+    user_id: window.localStorage.user_id,
     two_hr: $('input[name="twoHour"]:checked').val(),
    all_day: $('input[name="allDay"]:checked').val(),
    night: $('input[name="overnight"]:checked').val()

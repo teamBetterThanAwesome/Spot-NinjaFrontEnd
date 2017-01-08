@@ -9,6 +9,7 @@ $(document).ready(function() {
         };
         userLatLng = new google.maps.LatLng(userLocation.userLat, userLocation.userLng);
             initFullMap(userLocation);
+
         });
 
 
@@ -37,6 +38,7 @@ $(document).ready(function() {
                 icon: 'assets/images/logoninjasmall.png'
             });
             getUserSpots(userId)
+
         }
 
         function getUserSpots(userId) {
@@ -45,27 +47,26 @@ $(document).ready(function() {
                     url: `${API_URL}/spots/${userId}`,
                     dataType: 'json'
                 })
-                .done(function(data) {
-                    console.log(data);
-                    createPaidParkingMarkers(data)
+                .then(function(data) {
+                  createParkingSpotMarkers(data)
+                  spotList(data)
                 })
         }
 
 
 
-        function createPaidParkingMarkers(array) {
+        function createParkingSpotMarkers(array) {
             array.forEach(function(spot){
             var latLng = new google.maps.LatLng(spot.lat, spot.lng);
-            var paidParkingMarker = new google.maps.Marker({
+            var spotMarker = new google.maps.Marker({
                 map: map,
                 position: latLng,
                 icon: 'assets/images/car.png'
             });
 
-
-            var html = `<h3>${spot.id}</h3>
-                <p>${spot.lat}</p>
-                <p>${spot.lng}</p>
+            var html = `<h3>Spot #${spot.id}</h3>
+                <p>Lattitude: ${spot.lat}</p>
+                <p>Longitude: ${spot.lng}</p>
                 <p>Rating: ${spot.rating}</p>
                 <p>Comments: ${spot.comment}</p>
                 `
@@ -73,10 +74,38 @@ $(document).ready(function() {
                 content: html
             });
 
-            paidParkingMarker.addListener('click', function() {
-                infowindow.open(map, paidParkingMarker);
+            spotMarker.addListener('click', function() {
+                infowindow.open(map, spotMarker);
             });
               })
         }
+        function spotList(userSpots){
+          if (userSpots.length === 0){
+            $('#noSpots').show();
+            $('#winkNinja').show();
+          } else{
+          userSpots.forEach(function(spot){
+              $('#parkingList').append(`<li class="list-group-item">Spot #${spot.id}<a class="btn btn-default removeButton pull-right" data-spot="${spot.id}">Delete</a></li>`);
+
+          })
+          deleteSpot(userSpots)
+          }
+}
 
     })
+function deleteSpot(data){
+  $('.removeButton').on('click', function(){
+    let spotId = $(this).data();
+    $.ajax({
+      url: `${API_URL}/spots/${spotId.spot}`,
+      type: 'DELETE',
+      dataType: 'json',
+      success: function(){
+        window.location = `/profile.html?id=${localStorage.user_id}`;
+      }
+    })
+  });
+
+
+
+}
