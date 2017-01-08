@@ -85,14 +85,31 @@ $(document).ready(function() {
             $('#winkNinja').show();
           } else{
           userSpots.forEach(function(spot){
-              $('#parkingList').append(`<li class="list-group-item">Spot #${spot.id}<a class="btn btn-default removeButton pull-right" data-spot="${spot.id}">Delete</a></li>`);
+              $('#parkingList').append(`
+                <li class="list-group-item">
+                  ${spot.comment}
+                  <div class="pull-right">
+                    <a class="btn btn-default updateButton " data-spot="${spot.id}">Update</a>
+                    <a class="btn btn-default removeButton" data-spot="${spot.id}">Delete</a>
+                  </div>
+                </li>`);
 
           })
-          deleteSpot(userSpots)
+          updateSpot(userSpots);
+          deleteSpot(userSpots);
           }
 }
 
     })
+
+function updateSpot(data){
+  $('.updateButton').on('click', function(){
+    let spotId = $(this).data();
+    window.location = `/edit.html?id=${spotId.spot}`;
+  });
+}
+
+
 function deleteSpot(data){
   $('.removeButton').on('click', function(){
     let spotId = $(this).data();

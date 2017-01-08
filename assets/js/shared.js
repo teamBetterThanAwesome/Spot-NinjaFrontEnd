@@ -5,6 +5,7 @@ $.ajaxSetup({
   }
 });
 API_URL = getHostURL();
+
 function getHostURL() {
   if (window.location.host.indexOf('localhost') != -1) {
     return 'http://localhost:3000';
@@ -33,4 +34,8 @@ function logout() {
     .then(result => {
       window.location = '/';
     });
+}
+
+function getSpot(id) {
+  return $.get(`${API_URL}/spots/at/${id}`);
 }
