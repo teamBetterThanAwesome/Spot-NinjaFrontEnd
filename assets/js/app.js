@@ -132,9 +132,10 @@ $(document).ready(function() {
             });
             $('.hideWhenDone').hide();
             $('.showWhenDone').show();
+            var map = googleMaps[0]
             center = map.getCenter();
             google.maps.event.trigger(map, 'resize');
-            map.setCenter(center); 
+            map.setCenter(center);
         }
     })
 })
