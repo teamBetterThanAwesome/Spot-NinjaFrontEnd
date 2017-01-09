@@ -1,7 +1,7 @@
 
 #Spot Ninja 
 
-A crowdsourced parking application that allows user’s to find paid parking, store their favorite parking locations, and benefit and from the Spot Ninja community by viewing other user’s favorite spots. 
+A crowdsourced parking application that allows user’s to find paid parking, store their favorite parking locations, and benefit from the Spot Ninja community by viewing other user’s favorite spots. This full stack  web application was developed mobile first with user interaction in mind. 
 
 #Technologies used to make Spot Ninja
 - HTML, CSS, JavaScript, JQuery 
@@ -20,5 +20,7 @@ A crowdsourced parking application that allows user’s to find paid parking, st
 https://spot-ninja.firebaseapp.com/
 
 
-API Url
+API URL:  
 https://spotninja.herokuapp.com
+
+https://github.com/teamBetterThanAwesome/Spot-Ninja
