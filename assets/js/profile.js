@@ -73,7 +73,7 @@ $(document).ready(function() {
                 icon: 'assets/images/car.png'
             });
 
-            var html = `<h3>Name: ${spot.comment}</h3>
+            var html = `<h3>${spot.comment}</h3>
                 <p>Lattitude: ${spot.lat}</p>
                 <p>Longitude: ${spot.lng}</p>
                 <p>Rating: ${spot.rating}</p>
@@ -99,7 +99,7 @@ $(document).ready(function() {
           } else{
           userSpots.forEach(function(spot){
               $('#parkingList').append(`
-                <li class="list-group-item">
+                <li class="list-group-item row">
                   ${spot.comment}
                   <div class="pull-right">
                     <a class="btn btn-default updateButton " data-spot="${spot.id}">Update</a>
