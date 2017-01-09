@@ -132,6 +132,7 @@ $(document).ready(function() {
             });
             $('.hideWhenDone').hide();
             $('.showWhenDone').show();
+            google.maps.event.trigger(map, "resize");
         }
     })
 })
