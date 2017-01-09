@@ -13,7 +13,8 @@ $(document).ready(function() {
         getHeatMapPoints().then(function(heat) {
             initFullMap(userLocation, heat);
         });
-        $statusMessage.text('Creating Map')
+        $statusMessage.text('Creating Map');
+        $progressBar.width('22%');
         var input = document.getElementById('searchTextField');
         var options = {
             types: ['establishment']
@@ -77,7 +78,8 @@ $(document).ready(function() {
         }
 
         function getParkWhizData(userInfo) {
-            $statusMessage.text('Finding Paid Parking Near You' )
+            $statusMessage.text('Finding Paid Parking Near You')
+            $progressBar.width('56%');
             $.ajax({
                     type: 'GET',
                     url: API_URL,
@@ -107,6 +109,7 @@ $(document).ready(function() {
 
         function createPaidParkingMarkers(object) {
           $statusMessage.text('Sorting Parking Options')
+          $progressBar.width('93%');
             var latLng = new google.maps.LatLng(object.lat, object.lng);
             var paidParkingMarker = new google.maps.Marker({
                 map: map,
@@ -127,6 +130,8 @@ $(document).ready(function() {
             paidParkingMarker.addListener('click', function() {
                 infowindow.open(map, paidParkingMarker);
             });
+            $('.hideWhenDone').hide();
+            $('.showWhenDone').show();
         }
     })
 })
