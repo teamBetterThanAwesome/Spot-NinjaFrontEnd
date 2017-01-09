@@ -1,3 +1,6 @@
+  const $statusMessage = $('#statusMessage');
+  const $progressBar = $('#progressBar');
+
 
 $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -10,7 +13,7 @@ $(document).ready(function() {
         getHeatMapPoints().then(function(heat) {
             initFullMap(userLocation, heat);
         });
-
+        $statusMessage.text('Creating Map')
         var input = document.getElementById('searchTextField');
         var options = {
             types: ['establishment']
@@ -33,6 +36,7 @@ $(document).ready(function() {
 
         //this function returns location data to create the heatmap
         function getHeatMapPoints() {
+            $statusMessage.text("Finding Other Ninjas' Parking Spots")
             if (heatPoints.length > 0) {
                 return Promise.resolve(heatPoints)
             } else {
@@ -73,6 +77,7 @@ $(document).ready(function() {
         }
 
         function getParkWhizData(userInfo) {
+            $statusMessage.text('Finding Paid Parking Near You' )
             $.ajax({
                     type: 'GET',
                     url: API_URL,
@@ -85,6 +90,7 @@ $(document).ready(function() {
         }
 
         function displayPaidParkingData(data) {
+           $statusMessage.text('Plotting Paid Parking')
             for (var i = 0; i < data.length; i++) {
                 var parkingGaragesObject = {
                     lat: data[i]._embedded['pw:location'].entrances[0].coordinates[0],
@@ -100,6 +106,7 @@ $(document).ready(function() {
         }
 
         function createPaidParkingMarkers(object) {
+          $statusMessage.text('Sorting Parking Options')
             var latLng = new google.maps.LatLng(object.lat, object.lng);
             var paidParkingMarker = new google.maps.Marker({
                 map: map,
