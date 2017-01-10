@@ -37,5 +37,5 @@ function logout() {
 }
 
 function getSpot(id) {
-  return $.get(`${API_URL}/spots/at/${id}`);
+  return $.get(`${API_URL}/spots/${id}`);
 }
