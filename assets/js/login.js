@@ -9,7 +9,12 @@ $(document).ready(() => {
     };
     loginUser(formVals)
       .then(result => {
-        setIdRedirect(result);
+        if (result.error) {
+          // console.log(result.message);
+          $('#errMessage').text(`${result.message}`).show();
+        } else {
+          setIdRedirect(result);
+        }
       }).catch(error => {
         console.error(error);
       });

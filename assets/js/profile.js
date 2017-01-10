@@ -1,10 +1,13 @@
 const $progressBar = $('#progressBar');
 const $statusMessage = $('#statusMessage');
+const parsedParts = window.location.search.split('=');
+const userId = parsedParts[1];
 
 
 $(document).ready(function() {
-  const params = parseQuery(window.location.search)
-  const userId = parseInt(params.id);
+  if (userId != localStorage.user_id) {
+    window.location = '/login.html'
+  } else {
     navigator.geolocation.getCurrentPosition(function(position) {
         let userLocation = {
             userLat: position.coords.latitude,
@@ -51,7 +54,7 @@ $(document).ready(function() {
           $progressBar.width('45%');
             $.ajax({
                     type: 'GET',
-                    url: `${API_URL}/spots/${userId}`,
+                    url: `${API_URL}/users/${userId}`,
                     dataType: 'json'
                 })
                 .then(function(data) {
@@ -116,6 +119,8 @@ $(document).ready(function() {
           google.maps.event.trigger(map, 'resize');
           map.setCenter(center);
           }
+  }
+
 }
 
     })
